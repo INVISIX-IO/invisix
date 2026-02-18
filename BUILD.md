@@ -1,65 +1,65 @@
 # Pi-hole Ready-to-Go Distro Builder
 
-Este proyecto contiene las herramientas necesarias para crear una imagen personalizada de Raspberry Pi OS Lite con Pi-hole preinstalado y autoconfigurable.
+This project contains the necessary tools to create a custom Raspberry Pi OS Lite image with Pi-hole pre-installed and auto-configurable.
 
-## Requisitos
-- macOS con Docker Desktop instalado y corriendo.
-- Una imagen de [Raspberry Pi OS Lite (64-bit recomendada)](https://www.raspberrypi.com/software/operating-systems/).
+## Requirements
+- macOS with Docker Desktop installed and running.
+- A [Raspberry Pi OS Lite (64-bit recommended)](https://www.raspberrypi.com/software/operating-systems/) image.
 
-## Instrucciones de Uso
+## Usage Instructions
 
-### 1. Preparación
-1.  Descarga la imagen oficial de Raspberry Pi OS Lite.
-2.  Descomprime el archivo `.xz` para obtener el archivo `.img`.
-3.  Renombra el archivo imagen a: **`raspios.img`**
-4.  Coloca `raspios.img` en la carpeta raíz de este proyecto (junto a `build.sh`).
+### 1. Preparation
+1.  Download the official Raspberry Pi OS Lite image.
+2.  Unzip the `.xz` file to get the `.img` file.
+3.  Rename the image file to: **`raspios.img`**
+4.  Place `raspios.img` in the root folder of this project (next to `build.sh`).
 
-### 2. Construcción (Build)
-Ejecuta el script de construcción desde la terminal:
+### 2. Build
+Run the build script from the terminal:
 
 ```bash
 chmod +x build.sh
 ./build.sh
 ```
 
-Este proceso:
-- Creará un contenedor Docker con las herramientas necesarias (emulación ARM, kpartx).
-- Montará la imagen de Raspberry Pi.
-- Instalará Pi-hole y todas sus dependencias.
-- Creará el usuario por defecto `pi`.
-- Habilitará SSH.
-- Inyectará el script de "Primer Arranque".
-- Generará un nuevo archivo llamado **`invisix-distro.img`**.
+This process will:
+- Create a Docker container with the necessary tools (ARM emulation, kpartx).
+- Mount the Raspberry Pi image.
+- Install Pi-hole and all its dependencies.
+- Create the default user `pi`.
+- Enable SSH.
+- Inject the "First Boot" script.
+- Generate a new file named **`invisix-distro.img`**.
 
-### 3. Flasheo
-Utiliza [Raspberry Pi Imager](https://www.raspberrypi.com/software/) o `Etcher` para grabar el archivo **`invisix-distro.img`** en tu tarjeta SD.
+### 3. Flashing
+Use [Raspberry Pi Imager](https://www.raspberrypi.com/software/) or `Etcher` to write the **`invisix-distro.img`** file to your SD card.
 
-### 4. Instalación del Usuario Final
-1.  Inserta la SD en la Raspberry Pi 4 (o superior).
-2.  Conecta el cable de red (RJ45).
-3.  Conecta la alimentación.
-4.  **En tu Router**:
-    - Busca el dispositivo (se llamará `raspberrypi` o similar inicialmente).
-    - Asigna una **IP Estática (DHCP Reservation/Static Lease)** a la dirección MAC de la Raspberry Pi.
-    - (Opcional pero recomendado) Configura esa IP como el servidor DNS primario en tu router.
-5.  **Espera unos 2-3 minutos**. La Raspberry Pi detectará su IP asignada y reconfigurará Pi-hole automáticamente.
+### 4. End User Installation
+1.  Insert the SD card into the Raspberry Pi 4 (or higher).
+2.  Connect the network cable (RJ45).
+3.  Connect the power supply.
+4.  **On your Router**:
+    - Find the device (it will be named `raspberrypi` or similar initially).
+    - Assign a **Static IP (DHCP Reservation/Static Lease)** to the Raspberry Pi's MAC address.
+    - (Optional but recommended) Configure that IP as the primary DNS server in your router.
+5.  **Wait about 2-3 minutes**. The Raspberry Pi will detect its assigned IP and reconfigure Pi-hole automatically.
 
-### 5. Acceso y Credenciales
-El sistema viene configurado para ser accesible inmediatamente en tu red local:
+### 5. Access and Credentials
+The system comes configured to be immediately accessible on your local network:
 
 - **Pi-hole Web Interface**:
-  - URL: `http://<TU-IP-ESTATICA>/admin`
+  - URL: `http://<YOUR-STATIC-IP>/admin`
   - Password: `admin`
 
-- **Sistema (SSH / Terminal)**:
+- **System (SSH / Terminal)**:
   - User: `pi`
   - Password: `raspberry`
-  - SSH habilitado por defecto.
-  - **IMPORTANTE**: Cambia estas contraseñas (especialmente la de SSH) en cuanto inicies sesión por primera vez (`passwd`).
+  - SSH enabled by default.
+  - **IMPORTANT**: Change these passwords (especially the SSH one) as soon as you log in for the first time (`passwd`).
 
-## Estructura del Proyecto
-- `Dockerfile`: Entorno de compilación.
-- `build.sh`: Script maestro que orquesta todo el proceso.
-- `scripts/customize.sh`: Script que se ejecuta *dentro* de la imagen para instalar Pi-hole.
-- `scripts/firstboot.sh`: Script que se ejecuta en el *primer arranque* de la Pi para autoconfigurarse.
-- `scripts/invisix-autoconfig.service`: Servicio systemd que lanza `firstboot.sh`.
+## Project Structure
+- `Dockerfile`: Build environment.
+- `build.sh`: Master script that orchestrates the entire process.
+- `scripts/customize.sh`: Script that runs *inside* the image to install Pi-hole.
+- `scripts/firstboot.sh`: Script that runs on the *first boot* of the Pi to auto-configure itself.
+- `scripts/invisix-autoconfig.service`: systemd service that launches `firstboot.sh`.
