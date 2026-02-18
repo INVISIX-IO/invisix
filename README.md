@@ -1,9 +1,10 @@
-# 🛡️ Pi-hole + VPN Ready-to-Go
+# 🛡️ INVISIX.IO: AdBlock + VPN Ready-to-Go
 
-Welcome! This project effectively allows you to have an ad blocker for your entire home network and a VPN to access it from outside, all on a single Raspberry Pi.
+Welcome! This project effectively allows you to have an ad blocker for your entire home network and a private VPN to access it from outside, all on a single Raspberry Pi.
 
 🚫 **Goodbye Ads**: Browse faster and without distractions.
-🔒 **VPN Included**: Connect to your home securely from your mobile device when you are away (4G/5G) without opening any ports.
+🔒 **Private VPN Included**: Connect to your home securely from your mobile device when you are away (4G/5G) without opening any ports.
+✅ **Easy & Fast Setup**: Up & running in 10 minutes by non-technical users. Tested!
 
 ---
 
@@ -79,4 +80,4 @@ To see how many ads you've blocked:
 *   Password: `admin`
 
 ---
-*Made with ❤️ in Europe.*
+*Made with ❤️ in Barcelona*
